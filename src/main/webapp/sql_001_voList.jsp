@@ -68,9 +68,9 @@
 		for(Dept d : deptList) {
 	%>
 			<tr>
-				<td><%=d.deptNo%></td>
-				<td><%=d.dname%></td>
-				<td><%=d.loc%></td>
+				<td><%=d.getDeptNo()%></td>
+				<td><%=d.getDname()%></td>
+				<td><%=d.getLoc()%></td>
 			</tr>
 <%
 		}
@@ -86,9 +86,9 @@
 	%>
 
 	<tr>
-		<td><%=e.ename %></td>
-		<td><%=e.empNo %></td>
-		<td><%=e.sal %></td>
+		<td><%=e.getEname() %></td>
+		<td><%=e.getEmpNo() %></td>
+		<td><%=e.getSal() %></td>
 		
 	</tr>
 	<%

@@ -44,9 +44,10 @@ public class EmpDAO {
 			ResultSet rs = stmt.executeQuery(); 
 			while(rs.next()) {
 				Emp e = new Emp();
-				e.ename = rs.getString("ename");
-				e.sal = rs.getDouble("sal");
-				e.empNo = rs.getInt("empNo");
+				e.setEname(rs.getString("ename"));
+				e.setSal(rs.getDouble("sal"));
+				e.setEmpNo(rs.getInt("empNo"));
+				
 				list.add(e);
 			}
 			
