@@ -10,6 +10,63 @@ import oracle.jdbc.proxy.annotation.Pre;
 import vo.Emp;
 
 public class EmpDAO {
+		
+	
+		public static ArrayList<Emp> selectEmpListByGrade (ArrayList<Integer> ckList) throws Exception {
+			Connection conn = DBhelper.getConnection();
+			ArrayList<Emp> list = new ArrayList<>();
+			String sql = "select ename ,grade from emp where grade IN ";
+			PreparedStatement stmt = null;
+			
+			if(ckList.size() == 1) {
+				sql = sql + "(?)";
+				stmt = conn.prepareStatement(sql);
+				
+				stmt.setInt(1, ckList.get(0));
+			} else if(ckList.size() == 2) {
+				sql = sql + "(?,?)";
+				
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, ckList.get(0));
+				stmt.setInt(2, ckList.get(1));
+			} else if(ckList.size() == 3) {
+				sql = sql + "(?,?,?)";
+				
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, ckList.get(0));
+				stmt.setInt(2, ckList.get(1));
+				stmt.setInt(3, ckList.get(2));
+			} else if(ckList.size() == 4) {
+				sql = sql + "(?,?,?,?)";
+				
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, ckList.get(0));
+				stmt.setInt(2, ckList.get(1));
+				stmt.setInt(3, ckList.get(2));
+				stmt.setInt(4, ckList.get(3));
+				
+			} else if(ckList.size() == 5) {
+				sql = sql + "(?,?,?,?,?)";
+				
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, ckList.get(0));
+				stmt.setInt(2, ckList.get(1));
+				stmt.setInt(3, ckList.get(2));
+				stmt.setInt(4, ckList.get(3));
+				stmt.setInt(5, ckList.get(4));
+			}
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Emp e = new Emp();
+				e.setEname(rs.getString("ename"));
+				e.setGrade(rs.getInt("grade"));
+				list.add(e);
+			}
+			return list;
+		}
+					
+	
 		// q003Case.jsp
 		public static ArrayList<HashMap<String,String>> selectJobCaseList() throws Exception{
 			
