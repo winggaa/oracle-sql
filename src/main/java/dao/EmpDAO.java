@@ -10,6 +10,38 @@ import oracle.jdbc.proxy.annotation.Pre;
 import vo.Emp;
 
 public class EmpDAO {
+		public static ArrayList<Emp> selectEmpListSort(String col, String sort) throws Exception{
+				
+				
+				// 매개값 디버깅
+				System.out.println(col + "<-- EmpDAO.selectEmpListSort param col");
+				System.out.println(sort + "<-- ");
+				
+				ArrayList<Emp> list = new ArrayList<>();
+				Connection conn = DBhelper.getConnection();
+				
+				String sql = "select empno, ename from emp"; 
+				if(col != null && sort != null) {
+					sql = sql + "order by" + col + " " + sort;
+				}
+				
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				System.out.println(stmt);
+				ResultSet rs = stmt.executeQuery();
+				while(rs.next()) {
+					Emp e = new Emp();
+					e.setEmpNo(rs.getInt("empno"));
+					e.setEname(rs.getString("ename"));
+					list.add(e);
+				}
+				/*
+				동적쿼리(쿼리문자열이 매개값에 분기되어 차이가 나는 경우)
+				ename ASC
+				ename DESC
+				*/
+			conn.close();
+			return list;
+		}
 		
 	
 		public static ArrayList<Emp> selectEmpListByGrade (ArrayList<Integer> ckList) throws Exception {
